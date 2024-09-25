@@ -37,19 +37,11 @@
         #promo-container {
             margin-bottom: 20px;
         }
-        #message {
-            font-size: 24px;
-            color: gold;
-            margin-top: 20px;
-        }
-        #prize {
-            margin-top: 20px;
-        }
     </style>
 </head>
 <body style="background-image: url('https://umbphotos.ag/images/375b18fa3ffcc616179b8cf6ed4732c6.webp');">
     <h1></h1>
-    <img id="banner" src="" alt="Баннер" style="width: 100%; max-width: 400px; margin-bottom: 20px;">
+    <img id="banner" src="https://umbphotos.ag/images/e8bbf22d5f646b328cb2199c5f9a5650.jpg" alt="Баннер" style="width: 100%; max-width: 400px; margin-bottom: 20px;">
     <div id="promo-container">
         <input type="text" id="promo-code" placeholder="Введите промокод">
         <button onclick="checkPromoCode()">Активировать попытку</button>
@@ -65,48 +57,46 @@
         <div class="box" onclick="checkBox(this, 7)" style="background-image: url('https://umbphotos.ag/images/493a8ec7e0d23a2040eace64874b2125.png');"></div>
         <div class="box" onclick="checkBox(this, 8)" style="background-image: url('https://umbphotos.ag/images/493a8ec7e0d23a2040eace64874b2125.png');"></div>
     </div>
-    <div id="message" class="hidden"></div>
-    <img id="prize" src="https://example.com/gift.png" class="hidden" alt="Приз">
+    <img id="prize" src="https://umbphotos.ag/images/f02163cd80809887461386f8480b954d.png" class="hidden" alt="Приз">
     <script>
         let attempts = 0;
         let prizeGiven = false;
-        let prizeAttempt = Math.floor(Math.random() * 5) + 1; // Рандомная попытка в диапазоне 5
+        let prizeAttempt = Math.floor(Math.random() * 5) + 1;
         let promoCodes = [
-            "PROMO1", "PROMO2", "PROMO3", "PROMO4", "PROMO5",
-            "PROMO6", "PROMО7", "PROMО8", "PROMО9", "PROMО10",
-            "PROMО11", "PROMО12", "PROMО13", "PROMО14", "PROMО15",
-            "PROMО16", "PROMО17", "PROMО18", "PROMО19", "PROMО20",
-            "PROMО21", "PROMО22", "PROMО23", "PROMО24", "PROMО25",
-            "PROMО26", "PROMО27", "PROMО28", "PROMО29", "PROMО30",
-            "PROMО31", "PROMО32", "PROMО33", "PROMО34", "PROMО35",
-            "PROMО36", "PROMО37", "PROMО38", "PROMО39", "PROMО40",
-            "PROMО41", "PROMО42", "PROMО43", "PROMО44", "PROMО45",
-            "PROMО46", "PROMО47", "PROMО48", "PROMО49", "PROMО50",
-            "PROMО51", "PROMО52", "PROMО53", "PROMО54", "PROMО55",
-            "PROMО56", "PROMО57", "PROMО58", "PROMО59", "PROMО60",
-            "PROMО61", "PROMО62", "PROMО63", "PROMО64", "PROMО65",
-            "PROMО66", "PROMО67", "PROMО68", "PROMО69", "PROMО70",
-            "PROMО71", "PROMО72", "PROMО73", "PROMО74", "PROMО75",
-            "PROMО76", "PROMО77", "PROMО78", "PROMО79", "PROMО80",
-            "PROMО81", "PROMО82", "PROMО83", "PROMО84", "PROMО85",
-            "PROMО86", "PROMО87", "PROMО88", "PROMО89", "PROMО90",
-            "PROMО91", "PROMО92", "PROMО93", "PROMО94", "PROMО95",
-            "PROMО96", "PROMО97", "PROMО98", "PROMО99", "PROMО100"
+            "OPA3GIN5", "BUY6JKAS", "FRS9EEOT", "NPZSL44M", "ALA99B1Z",
+            "LNJ2YH5T", "DJUHO246", "4O2TB4PT", "HDPGED2M", "551B4ICL",
+            "M0U3N74Q", "I9HEIDUL", "219M6DJQ", "5J5XK2PV", "ZASWUWF6",
+            "W9HBW4V1", "G77LEJO6", "DQ2XGL78", "DYT2ZX4D", "CFSN93VN",
+            "44QGI2AB", "4TC8RTND", "KPID6N8S", "WZQCKI7E", "ZO4SYCGP",
+            "J5KKIAB9", "30C8W4YP", "C345XOAT", "DVI2GTYP", "WH15PGMF",
+            "EH3EIHO4", "ZLAIW8SG", "9XDQN8WE", "I5G3RJQS", "6QD7DSEM",
+            "28DLWMRY", "3P041IHO", "JZ57Z02Q", "0XLRF6NP", "N2ZUJ8K7",
+            "KIA0UIOP", "0QT1ORE7", "QEULL3ZD", "RQ4IJAJF", "C88X5HEA",
+            "7N18LO6C", "FNCEH0W8", "LMYVLEB2", "1JNQX6KJ", "NDHAL604",
+            "BA5WV46R", "Y2YFZ235", "46TY1IFA", "JTS1H558", "260QNLAS",
+            "LFOS4UCY", "IDIWO22Z", "PD1LZ8BQ", "D2PRVVA0", "GLH1UD7R",
+            "CZFW7CSZ", "7V7PRO6D", "FU7XUYRK", "1RQ7IIQ2", "IF87FRIK",
+            "R20FH1HI", "Y30132RQ", "A8NYPOLM", "YTSLYV04", "LDW7Q40M",
+            "3H95DGKI", "89GJM9MD", "TSLDSJK4", "6BYQQYIY", "WVW7AWO4",
+            "AOX1REAA", "HSVF5ZSM", "RKZT0CVK", "9NK8GNP1", "BSM0PZQI",
+            "UVL3AF3B", "5TPKKH89", "XIAL85OU", "HM3XNJEU", "Q644JI3W",
+            "FNSXLQ90", "N45V27QW", "RM3IBIM4", "HAR207F6", "UV8KQYLG",
+            "T5AAA9SL", "Y9WLGX5H", "WF5NPVMB", "N2VP0M9A", "5ZAQP3LJ",
+            "N89ZK8VL", "WYAFYZK6", "QOU39VV1", "R6RLXAIM", "3Y1D8OC5"
         ];
 
-        // Загрузка использованных промокодов из localStorage
+        // Load used promo codes from localStorage
         let usedPromoCodes = JSON.parse(localStorage.getItem('usedPromoCodes')) || [];
 
         function checkPromoCode() {
             const promoCode = document.getElementById('promo-code').value;
             const promoIndex = promoCodes.indexOf(promoCode);
             if (promoIndex !== -1 && !usedPromoCodes.includes(promoCode)) {
-                promoCodes.splice(promoIndex, 1); // Удаление использованного промокода из доступных кодов
-                usedPromoCodes.push(promoCode); // Добавление в использованные промокоды
-                localStorage.setItem('usedPromoCodes', JSON.stringify(usedPromoCodes)); // Сохранение в localStorage
+                promoCodes.splice(promoIndex, 1); // Remove used promo code from available codes
+                usedPromoCodes.push(promoCode); // Add to used promo codes
+                localStorage.setItem('usedPromoCodes', JSON.stringify(usedPromoCodes)); // Save to localStorage
                 document.getElementById('promo-container').classList.add('hidden');
                 document.getElementById('game-container').classList.remove('hidden');
-                resetGame(); // Сброс сообщений и изображений
             } else {
                 alert('Неверный или уже использованный промокод!');
             }
@@ -114,27 +104,22 @@
 
         function checkBox(element, index) {
             attempts++;
-            const messageElement = document.getElementById('message');
-            const prizeElement = document.getElementById('prize');
-            messageElement.classList.remove('hidden');
-            if (attempts === prizeAttempt && !prizeGiven) {
+            if (attempts % 5 === prizeAttempt && !prizeGiven) {
                 prizeGiven = true;
-                prizeElement.classList.remove('hidden');
-                messageElement.textContent = 'Поздравляем!';
+                document.getElementById('prize').classList.remove('hidden');
+                alert('Поздравляем! Вы нашли приз!');
+            } else if (prizeGiven && attempts % 5 !== 0) {
+                alert('Попробуйте снова!');
+            } else if (attempts % 5 === 0) {
+                prizeGiven = false;
+                prizeAttempt = Math.floor(Math.random() * 5) + 1; // Сброс для следующего цикла
+                alert('Попробуйте снова!');
             } else {
-                prizeElement.classList.add('hidden');
-                messageElement.textContent = 'Попробуй еще раз';
+                alert('Попробуйте снова!');
             }
             document.getElementById('promo-container').classList.remove('hidden');
             document.getElementById('game-container').classList.add('hidden');
         }
-
-        function resetGame() {
-            const messageElement = document.getElementById('message');
-            const prizeElement = document.getElementById('prize');
-            messageElement.classList.add('hidden');
-            prizeElement.classList.add('hidden');
-            messageElement.textContent = '';
-            attempts = 0;
-            prizeGiven = false;
-            prizeAttempt = Math.floor(Math.random() * 5) + 1; // Новый рандомный диапазон
+    </script>
+</body>
+</html>          

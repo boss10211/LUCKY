@@ -103,23 +103,33 @@
         }
 
         function checkBox(element, index) {
-            attempts++;
-            if (attempts % 5 === prizeAttempt && !prizeGiven) {
-                prizeGiven = true;
-                document.getElementById('prize').classList.remove('hidden');
-                alert('Поздравляем! Вы нашли приз!');
-            } else if (prizeGiven && attempts % 5 !== 0) {
-                alert('Попробуйте снова!');
-            } else if (attempts % 5 === 0) {
-                prizeGiven = false;
-                prizeAttempt = Math.floor(Math.random() * 5) + 1; // Сброс для следующего цикла
-                alert('Попробуйте снова!');
-            } else {
-                alert('Попробуйте снова!');
-            }
-            document.getElementById('promo-container').classList.remove('hidden');
-            document.getElementById('game-container').classList.add('hidden');
-        }
+    attempts++;
+    const messageElement = document.getElementById('message');
+    const prizeElement = document.getElementById('prize');
+    
+    if (attempts % 5 === prizeAttempt && !prizeGiven) {
+        prizeGiven = true;
+        messageElement.textContent = 'Поздравляем!';
+        prizeElement.classList.remove('hidden');
+        messageElement.classList.remove('hidden');
+    } else if (prizeGiven && attempts % 5 !== 0) {
+        messageElement.textContent = 'Попробуйте снова!';
+        messageElement.classList.remove('hidden');
+        prizeElement.classList.add('hidden');
+    } else if (attempts % 5 === 0) {
+        prizeGiven = false;
+        prizeAttempt = Math.floor(Math.random() * 5) + 1; // Сброс для следующего цикла
+        messageElement.textContent = 'Попробуйте снова!';
+        messageElement.classList.remove('hidden');
+        prizeElement.classList.add('hidden');
+    } else {
+        messageElement.textContent = 'Попробуйте снова!';
+        messageElement.classList.remove('hidden');
+        prizeElement.classList.add('hidden');
+    }
+    document.getElementById('promo-container').classList.remove('hidden');
+    document.getElementById('game-container').classList.add('hidden');
+}
     </script>
 </body>
 </html>          

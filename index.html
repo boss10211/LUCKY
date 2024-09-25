@@ -130,23 +130,12 @@
             document.getElementById('game-container').classList.add('hidden');
         }
 
-          function checkBox(element, index) {
-            attempts++;
-            if (attempts % 5 === prizeAttempt && !prizeGiven) {
-                prizeGiven = true;
-                document.getElementById('prize').classList.remove('hidden');
-                alert('Поздравляем! Вы нашли приз!');
-            } else if (prizeGiven && attempts % 5 !== 0) {
-                alert('Попробуйте снова!');
-            } else if (attempts % 5 === 0) {
-                prizeGiven = false;
-                prizeAttempt = Math.floor(Math.random() * 5) + 1; // Сброс для следующего цикла
-                alert('Попробуйте снова!');
-            } else {
-                alert('Попробуйте снова!');
-            }
-            document.getElementById('promo-container').classList.remove('hidden');
-            document.getElementById('game-container').classList.add('hidden');
+        function resetGame() {
+            const messageElement = document.getElementById('message');
+            const prizeElement = document.getElementById('prize');
+            messageElement.classList.add('hidden');
+            prizeElement.classList.add('hidden');
+            messageElement.textContent = '';
         }
     </script>
 </body>

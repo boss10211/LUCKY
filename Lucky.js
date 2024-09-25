@@ -1,0 +1,1 @@
+let usedPromoCodes = JSON.parse(localStorage.getItem('usedPromoCodes')) || [];

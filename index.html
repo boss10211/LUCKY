@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Игра с сундуками</title>
+    <style>
+        body {
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        .box {
+            width: 100px;
+            height: 100px;         
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            background-size: cover;
+            background-position: center;
+        }
+        .hidden {
+            display: none;
+        }
+        h1 {
+            color: gold;
+        }
+        #promo-container {
+            margin-bottom: 20px;
+        }
+        #message {
+            font-size: 24px;
+            color: gold;
+            margin-top: 20px;
+        }
+        #prize {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body style="background-image: url('https://umbphotos.ag/images/375b18fa3ffcc616179b8cf6ed4732c6.webp');">
+    <h1></h1>
+    <img id="banner" src="https://umbphotos.ag/images/e8bbf22d5f646b328cb2199c5f9a5650.jpg" alt="Баннер" style="width: 100%; max-width: 400px; margin-bottom: 20px;">
+    <div id="promo-container">
+        <input type="text" id="promo-code" placeholder="Введите промокод">
+        <button onclick="checkPromoCode()">Активировать попытку</button>
+    </div>
+    <div class="container hidden" id="game-container">
+        <div class="box" onclick="checkBox(this, 0)" style="background-image: url('https://umbphotos.ag/images/493a8ec7e0d23a2040eace64874b2125.png');"></div>
+        <div class="box" onclick="checkBox(this, 1)" style="background-image: url('https://umbphotos.ag/images/493a8ec7e0d23a2040eace64874b2125.png');"></div>
+        <div class="box" onclick="checkBox(this, 2)" style="background-image: url('https://umbphotos.ag/images/493a8ec7e0d23a2040eace64874b2125.png');"></div>
+        <div class="box" onclick="checkBox(this, 3)" style="background-image: url('https://umbphotos.ag/images/493a8ec7e0d23a2040eace64874b2125.png');"></div>
+        <div class="box" onclick="checkBox(this, 4)" style="background-image: url('https://umbphotos.ag/images/493a8ec7e0d23a2040eace64874b2125.png');"></div>
+        <div class="box" onclick="checkBox(this, 5)" style="background-image: url('https://umbphotos.ag/images/493a8ec7e0d23a2040eace64874b2125.png');"></div>
+        <div class="box" onclick="checkBox(this, 6)" style="background-image: url('https://umbphotos.ag/images/493a8ec7e0d23a2040eace64874b2125.png');"></div>
+        <div class="box" onclick="checkBox(this, 7)" style="background-image: url('https://umbphotos.ag/images/493a8ec7e0d23a2040eace64874b2125.png');"></div>
+        <div class="box" onclick="checkBox(this, 8)" style="background-image: url('https://umbphotos.ag/images/493a8ec7e0d23a2040eace64874b2125.png');"></div>
+    </div>
+    <div id="message" class="hidden"></div>
+    <img id="prize" src="https://umbphotos.ag/images/3ead72ab23cf030f6da0985b70e80156.png" class="hidden" alt="Приз">
+    <script>
+        let attempts = 0;
+        let prizeGiven = false;
+        let prizeAttempt = Math.floor(Math.random() * 5) + 1;
+        let promoCodes = [
+            "PROMO1", "PROMO2", "PROMO3", "PROMO4", "PROMO5",
+            "PROMO6", "PROMO7", "PROMО8", "PROMО9", "PROMО10",
+            "PROMО11", "PROMО12", "PROMО13", "PROMО14", "PROMО15",
+            "PROMО16", "PROMО17", "PROMО18", "PROMО19", "PROMО20",
+            "PROMО21", "PROMО22", "PROMО23", "PROMО24", "PROMО25",
+            "PROMО26", "PROMО27", "PROMО28", "PROMО29", "PROMО30",
+            "PROMО31", "PROMО32", "PROMО33", "PROMО34", "PROMО35",
+            "PROMО36", "PROMО37", "PROMО38", "PROMО39", "PROMО40",
+            "PROMО41", "PROMО42", "PROMО43", "PROMО44", "PROMО45",
+            "PROMО46", "PROMО47", "PROMО48", "PROMО49", "PROMО50",
+            "PROMО51", "PROMО52", "PROMО53", "PROMО54", "PROMО55",
+            "PROMО56", "PROMО57", "PROMО58", "PROMО59", "PROMО60",
+            "PROMО61", "PROMО62", "PROMО63", "PROMО64", "PROMО65",
+            "PROMО66", "PROMО67", "PROMО68", "PROMО69", "PROMО70",
+            "PROMО71", "PROMО72", "PROMО73", "PROMО74", "PROMО75",
+            "PROMО76", "PROMО77", "PROMО78", "PROMО79", "PROMО80",
+            "PROMО81", "PROMО82", "PROMО83", "PROMО84", "PROMО85",
+            "PROMО86", "PROMО87", "PROMО88", "PROMО89", "PROMО90",
+            "PROMО91", "PROMО92", "PROMО93", "PROMО94", "PROMО95",
+            "PROMО96", "PROMО97", "PROMО98", "PROMО99", "PROMО100"
+        ];
+
+        // Загрузка использованных промокодов из localStorage
+        let usedPromoCodes = JSON.parse(localStorage.getItem('usedPromoCodes')) || [];
+
+        function checkPromoCode() {
+            const promoCode = document.getElementById('promo-code').value;
+            const promoIndex = promoCodes.indexOf(promoCode);
+            if (promoIndex !== -1 && !usedPromoCodes.includes(promoCode)) {
+                promoCodes.splice(promoIndex, 1); // Удаление использованного промокода из доступных кодов
+                usedPromoCodes.push(promoCode); // Добавление в использованные промокоды
+                localStorage.setItem('usedPromoCodes', JSON.stringify(usedPromoCodes)); // Сохранение в localStorage
+                document.getElementById('promo-container').classList.add('hidden');
+                document.getElementById('game-container').classList.remove('hidden');
+                resetGame(); // Сброс сообщений и изображений
+            } else {
+                alert('Неверный или уже использованный промокод!');
+            }
+        }
+
+        function checkBox(element, index) {
+            attempts++;
+            const messageElement = document.getElementById('message');
+            const prizeElement = document.getElementById('prize');
+            messageElement.classList.remove('hidden');
+            if (attempts % 10 === prizeAttempt && !prizeGiven) {
+                prizeGiven = true;
+                prizeElement.classList.remove('hidden');
+                messageElement.textContent = 'Поздравляем! Вы выиграли  1г. Вы можете  забрать  свой  приз  у  оператора Кетт';
+            } else {
+                prizeElement.classList.add('hidden');
+                messageElement.textContent = 'Попробуй еще раз';
+            }
+            document.getElementById('promo-container').classList.remove('hidden');
+            document.getElementById('game-container').classList.add('hidden');
+        }
+
+        function resetGame() {
+            const messageElement = document.getElementById('message');
+            const prizeElement = document.getElementById('prize');
+            messageElement.classList.add('hidden');
+            prizeElement.classList.add('hidden');
+            messageElement.textContent = '';
+        }
+    </script>
+</body>
+</html>

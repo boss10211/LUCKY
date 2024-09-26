@@ -12,9 +12,9 @@
         }
         .container {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 10px;
-            max-width: 200px;
+            max-width: 300px;
             margin: 0 auto;
         }
         .box {
@@ -44,11 +44,6 @@
         }
         #prize {
             margin-top: 20px;
-        }
-        #promo-message {
-            font-size: 18px;
-            color: red;
-            margin-top: 10px;
         }
     </style>
 </head>
@@ -99,13 +94,12 @@
             "09NA5CO3", "51J7412B", "Z4SUI2K6", "TODHUR7E", "7FCAD3I4"
         ];
 
-               // Load used promo codes from localStorage
+        // Load used promo codes from localStorage
         let usedPromoCodes = JSON.parse(localStorage.getItem('usedPromoCodes')) || [];
 
         function checkPromoCode() {
             const promoCode = document.getElementById('promo-code').value;
             const promoIndex = promoCodes.indexOf(promoCode);
-            const promoMessageElement = document.getElementById('promo-message');
             if (promoIndex !== -1 && !usedPromoCodes.includes(promoCode)) {
                 promoCodes.splice(promoIndex, 1); // Remove used promo code from available codes
                 usedPromoCodes.push(promoCode); // Add to used promo codes
@@ -114,10 +108,8 @@
                 document.getElementById('game-container').classList.remove('hidden');
                 document.getElementById('message').classList.add('hidden'); // Hide previous message
                 document.getElementById('prize').classList.add('hidden'); // Hide previous prize
-                promoMessageElement.classList.add('hidden'); // Hide promo message
             } else {
-                promoMessageElement.textContent = 'Неверный или уже использованный промокод!';
-                promoMessageElement.classList.remove('hidden');
+                alert('Неверный или уже использованный промокод!');
             }
         }
 

@@ -49,7 +49,7 @@
 </head>
 <body style="background-image: url('https://umbphotos.ag/images/375b18fa3ffcc616179b8cf6ed4732c6.webp');">
     <h1></h1>
-    <img id="banner" src="https://umbphotos.ag/images/e8bbf22d5f646b328cb2199c5f9a5650.jpg" alt="Баннер" style="width: 100%; max-width: 400px; margin-bottom: 20px;">
+    <img id="banner" src="" alt="Баннер" style="width: 100%; max-width: 400px; margin-bottom: 20px;">
     <div id="promo-container">
         <input type="text" id="promo-code" placeholder="Введите промокод">
         <button onclick="checkPromoCode()">Активировать попытку</button>
@@ -120,21 +120,21 @@ splice(promoIndex, 1); // Remove used promo code from available codes
             
             if (attempts % 5 === prizeAttempt && !prizeGiven) {
                 prizeGiven = true;
-                messageElement.textContent = '🎉Поздравляем! Вы выиграли 1️⃣г ⚖️. Получите свой приз🎁 у оператора Kett💻';
+                messageElement.textContent = 'Поздравляем! Вы выиграли ';
                 prizeElement.classList.remove('hidden');
                 messageElement.classList.remove('hidden');
             } else if (prizeGiven && attempts % 5 !== 0) {
-                messageElement.textContent = 😔Попробуйте снова🔂';
+                messageElement.textContent = 'Попробуйте снова!';
                 messageElement.classList.remove('hidden');
                 prizeElement.classList.add('hidden');
             } else if (attempts % 5 === 0) {
                 prizeGiven = false;
                 prizeAttempt = Math.floor(Math.random() * 5) + 1; // Сброс для следующего цикла
-                messageElement.textContent = '😔Попробуйте снова🔂';
+                messageElement.textContent = 'Попробуйте снова!';
                 messageElement.classList.remove('hidden');
                 prizeElement.classList.add('hidden');
             } else {
-                messageElement.textContent = '😔Попробуйте снова🔂';
+                messageElement.textContent = 'Попробуйте снова!';
                 messageElement.classList.remove('hidden');
                 prizeElement.classList.add('hidden');
             }

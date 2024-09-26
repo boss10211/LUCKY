@@ -100,6 +100,7 @@
         function checkPromoCode() {
             const promoCode = document.getElementById('promo-code').value;
             const promoIndex = promoCodes.indexOf(promoCode);
+            const promoMessageElement = document.getElementById('promo-message');
             if (promoIndex !== -1 && !usedPromoCodes.includes(promoCode)) {
                 promoCodes.splice(promoIndex, 1); // Remove used promo code from available codes
                 usedPromoCodes.push(promoCode); // Add to used promo codes
@@ -108,8 +109,10 @@
                 document.getElementById('game-container').classList.remove('hidden');
                 document.getElementById('message').classList.add('hidden'); // Hide previous message
                 document.getElementById('prize').classList.add('hidden'); // Hide previous prize
+                promoMessageElement.classList.add('hidden'); // Hide promo message
             } else {
-                alert('Неверный или уже использованный промокод!');
+                promoMessageElement.textContent = 'Неверный или уже использованный промокод!';
+                promoMessageElement.classList.remove('hidden');
             }
         }
 

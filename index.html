@@ -98,6 +98,7 @@
         let usedPromoCodes = JSON.parse(localStorage.getItem('usedPromoCodes')) || [];
 
         function checkPromoCode() {
+            <div id="message" class="hidden"></div>
             const promoCode = document.getElementById('promo-code').value;
             const promoIndex = promoCodes.indexOf(promoCode);
             if (promoIndex !== -1 && !usedPromoCodes.includes(promoCode)) {

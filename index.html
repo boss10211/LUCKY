@@ -49,7 +49,7 @@
 </head>
 <body style="background-image: url('https://umbphotos.ag/images/375b18fa3ffcc616179b8cf6ed4732c6.webp');">
     <h1></h1>
-    <img id="banner" src="https://umbphotos.ag/images/e8bbf22d5f646b328cb2199c5f9a5650.jpg" alt="Баннер" style="width: 100%; max-width: 400px; margin-bottom: 20px;">
+    <img id="banner" src="" alt="Баннер" style="width: 100%; max-width: 400px; margin-bottom: 20px;">
     <div id="promo-container">
         <input type="text" id="promo-code" placeholder="Введите промокод">
         <button onclick="checkPromoCode()">Активировать попытку</button>
@@ -94,7 +94,7 @@
             "09NA5CO3", "51J7412B", "Z4SUI2K6", "TODHUR7E", "7FCAD3I4"
         ];
 
-        /// Load used promo codes from localStorage
+        // Load used promo codes from localStorage
         let usedPromoCodes = JSON.parse(localStorage.getItem('usedPromoCodes')) || [];
 
         function checkPromoCode() {
@@ -113,11 +113,27 @@
             }
         }
 
+        function sendTelegramMessage(promoCode, result) {
+            const botToken = '7613629522:AAFLm0U-v-tEJIF5GF69w_I-ipIwXT-U7Kw';
+            const chatId = '5920944588';
+            const message = `Промокод: ${promoCode}\nРезультат: ${result}`;
+            const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+
+            fetch(url).then(response => {
+                if (!response.ok) {
+                    console.error('Ошибка отправки сообщения в Telegram');
+                }
+            }).catch(error => {
+                console.error('Ошибка отправки сообщения в Telegram', error);
+            });
+        }
+
         function checkBox(element, index) {
             attempts++;
             localStorage.setItem('attempts', attempts); // Save attempts to localStorage
             const messageElement = document.getElementById('message');
             const prizeElement = document.getElementById('prize');
+            let result = 'Попробуйте снова!';
             
             if (attempts % 5 === prizeAttempt && !prizeGiven) {
                 prizeGiven = true;
@@ -125,6 +141,7 @@
                 messageElement.textContent = '🎆Поздравляем🎆 Вы выиграли 1️⃣ грамм⚖️. Отправьте  свой  промокод🏷 и  получите  приз🎁  у  оператора  Kett💻';
                 prizeElement.classList.remove('hidden');
                 messageElement.classList.remove('hidden');
+                result = 'Поздравляем!';
             } else if (prizeGiven && attempts % 5 !== 0) {
                 messageElement.textContent = 'Попробуйте снова!';
                 messageElement.classList.remove('hidden');
@@ -142,6 +159,8 @@
                 messageElement.classList.remove('hidden');
                 prizeElement.classList.add('hidden');
             }
+
+            sendTelegramMessage(usedPromoCodes[usedPromoCodes.length - 1], result); // Send Telegram message with the last used promo code and result
             document.getElementById('promo-container').classList.remove('hidden');
             document.getElementById('game-container').classList.add('hidden');
         }

@@ -98,24 +98,20 @@
         let usedPromoCodes = JSON.parse(localStorage.getItem('usedPromoCodes')) || [];
 
         function checkPromoCode() {
-    const promoCode = document.getElementById('promo-code').value;
-    const promoIndex = promoCodes.indexOf(promoCode);
-    const messageElement = document.getElementById('promo-message');
-
-    if (promoIndex !== -1 && !usedPromoCodes.includes(promoCode)) {
-        promoCodes.splice(promoIndex, 1); // Удалить использованный промокод из доступных кодов
-        usedPromoCodes.push(promoCode); // Добавить в использованные промокоды
-        localStorage.setItem('usedPromoCodes', JSON.stringify(usedPromoCodes)); // Сохранить в localStorage
-        document.getElementById('promo-container').classList.add('hidden');
-        document.getElementById('game-container').classList.remove('hidden');
-        document.getElementById('message').classList.add('hidden'); // Скрыть предыдущее сообщение
-        document.getElementById('prize').classList.add('hidden'); // Скрыть предыдущий приз
-        messageElement.classList.add('hidden'); // Скрыть сообщение о промокоде
-    } else {
-        messageElement.textContent = 'Неверный или уже использованный промокод!';
-        messageElement.classList.remove('hidden'); // Показать сообщение о промокоде
-    }
-}
+            const promoCode = document.getElementById('promo-code').value;
+            const promoIndex = promoCodes.indexOf(promoCode);
+            if (promoIndex !== -1 && !usedPromoCodes.includes(promoCode)) {
+                promoCodes.splice(promoIndex, 1); // Remove used promo code from available codes
+                usedPromoCodes.push(promoCode); // Add to used promo codes
+                localStorage.setItem('usedPromoCodes', JSON.stringify(usedPromoCodes)); // Save to localStorage
+                document.getElementById('promo-container').classList.add('hidden');
+                document.getElementById('game-container').classList.remove('hidden');
+                document.getElementById('message').classList.add('hidden'); // Hide previous message
+                document.getElementById('prize').classList.add('hidden'); // Hide previous prize
+            } else {
+                alert('Неверный или уже использованный промокод!');
+            }
+        }
 
         function sendTelegramMessage(promoCode, result) {
             const botToken = '7613629522:AAFLm0U-v-tEJIF5GF69w_I-ipIwXT-U7Kw';

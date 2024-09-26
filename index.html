@@ -106,7 +106,7 @@
                 localStorage.setItem('usedPromoCodes', JSON.stringify(usedPromoCodes)); // Save to localStorage
                 document.getElementById('promo-container').classList.add('hidden');
                 document.getElementById('game-container').classList.remove('hidden');
-                document.getElementById('message').classList.add('hidden'); // Hide previous message
+                document.getElementById('promo-message').classList.add('hidden'); // Hide previous message
                 document.getElementById('prize').classList.add('hidden'); // Hide previous prize
             } else {
                 alert('Неверный или уже использованный промокод!');

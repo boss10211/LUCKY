@@ -66,7 +66,7 @@
         <div class="box" onclick="checkBox(this, 8)" style="background-image: url('https://umbphotos.ag/images/493a8ec7e0d23a2040eace64874b2125.png');"></div>
     </div>
     <div id="message" class="hidden"></div>
-    <img id="prize" src="https://umbphotos.ag/images/f02163cd80809887461386f8480b954d.png" class="hidden" alt="Приз">
+    <img id="prize" src="https://umbphotos.ag/images/61037849ac98853d06a70ca915dad97a.png" class="hidden" alt="Приз">
     <script>
         let attempts = 0;
         let prizeGiven = false;
@@ -120,21 +120,21 @@ splice(promoIndex, 1); // Remove used promo code from available codes
             
             if (attempts % 5 === prizeAttempt && !prizeGiven) {
                 prizeGiven = true;
-                messageElement.textContent = 'Поздравляем!';
+                messageElement.textContent = '🎉Поздравляем! Вы выиграли 1️⃣г ⚖️. Получите свой приз🎁 у оператора Kett💻';
                 prizeElement.classList.remove('hidden');
                 messageElement.classList.remove('hidden');
             } else if (prizeGiven && attempts % 5 !== 0) {
-                messageElement.textContent = 'Попробуйте снова!';
+                messageElement.textContent = 😔Попробуйте снова🔂';
                 messageElement.classList.remove('hidden');
                 prizeElement.classList.add('hidden');
             } else if (attempts % 5 === 0) {
                 prizeGiven = false;
                 prizeAttempt = Math.floor(Math.random() * 5) + 1; // Сброс для следующего цикла
-                messageElement.textContent = 'Попробуйте снова!';
+                messageElement.textContent = '😔Попробуйте снова🔂';
                 messageElement.classList.remove('hidden');
                 prizeElement.classList.add('hidden');
             } else {
-                messageElement.textContent = 'Попробуйте снова!';
+                messageElement.textContent = '😔Попробуйте снова🔂';
                 messageElement.classList.remove('hidden');
                 prizeElement.classList.add('hidden');
             }

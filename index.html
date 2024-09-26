@@ -12,9 +12,9 @@
         }
         .container {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 10px;
-            max-width: 300px;
+            max-width: 200px;
             margin: 0 auto;
         }
         .box {
@@ -45,6 +45,11 @@
         #prize {
             margin-top: 20px;
         }
+        #promo-message {
+            font-size: 18px;
+            color: red;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body style="background-image: url('https://umbphotos.ag/images/375b18fa3ffcc616179b8cf6ed4732c6.webp');">
@@ -53,6 +58,7 @@
     <div id="promo-container">
         <input type="text" id="promo-code" placeholder="Введите промокод">
         <button onclick="checkPromoCode()">Активировать попытку</button>
+        <div id="promo-message" class="hidden"></div>
     </div>
     <div class="container hidden" id="game-container">
         <div class="box" onclick="checkBox(this, 0)" style="background-image: url('https://umbphotos.ag/images/493a8ec7e0d23a2040eace64874b2125.png');"></div>

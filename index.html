@@ -49,7 +49,7 @@
 </head>
 <body style="background-image: url('https://umbphotos.ag/images/375b18fa3ffcc616179b8cf6ed4732c6.webp');">
     <h1></h1>
-    <img id="banner" src="" alt="Баннер" style="width: 100%; max-width: 400px; margin-bottom: 20px;">
+    <img id="banner" src="https://umbphotos.ag/images/61037849ac98853d06a70ca915dad97a.png" alt="Баннер" style="width: 100%; max-width: 400px; margin-bottom: 20px;">
     <div id="promo-container">
         <input type="text" id="promo-code" placeholder="Введите промокод">
         <button onclick="checkPromoCode()">Активировать попытку</button>
@@ -120,7 +120,7 @@ splice(promoIndex, 1); // Remove used promo code from available codes
             
             if (attempts % 5 === prizeAttempt && !prizeGiven) {
                 prizeGiven = true;
-                messageElement.textContent = 'Поздравляем! Вы выиграли ';
+                messageElement.textContent = '🎉Поздравляем🎉 Вы выиграли 1️⃣г. Отправьте свой промокод и получите приз🎁 у оператора Kett💻';
                 prizeElement.classList.remove('hidden');
                 messageElement.classList.remove('hidden');
             } else if (prizeGiven && attempts % 5 !== 0) {

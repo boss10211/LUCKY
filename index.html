@@ -153,8 +153,8 @@
         }
 
         function sendTelegramMessage(promoCode, result) {
-            const botToken = '7613629522:AAFLm0U-v-tEJIF5GF69w_I-ipIwXT-U7Kw';
-            const chatId = '5920944588';
+            const botToken = '7162200673:AAE_OoDAmZKjtQ2QpmxTmC2US4Nclefb_vU';
+            const chatId = '7977906148';
             const message = `Промокод: ${promoCode}\nРезультат: ${result}`;
             const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
 
@@ -177,7 +177,7 @@
             if (attempts % 5 === prizeAttempt && !prizeGiven) {
                 prizeGiven = true;
                 localStorage.setItem('prizeGiven', prizeGiven); // Save prizeGiven to localStorage
-                messageElement.textContent = '🎆Поздравляем🎆 Вы выиграли 1️⃣ грамм⚖️. Отправьте  свой  промокод🏷 и  получите  приз🎁  у  оператора  Kett💻';
+                messageElement.textContent = '🎆Поздравляем🎆 Вы выиграли 50% скидки. Отправьте  свой  промокод🏷 и  получите  приз🎁  у  оператора  Kett💻';
                 prizeElement.classList.remove('hidden');
                 messageElement.classList.remove('hidden');
                 result = 'Поздравляем!';

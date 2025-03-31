@@ -167,41 +167,38 @@
             });
         }
 
-        function checkBox(element, index) {
+function checkBox(element, index) {
             attempts++;
-            localStorage.setItem('attempts', attempts); // Save attempts to localStorage
+            localStorage.setItem('attempts', attempts);
+
             const messageElement = document.getElementById('message');
             const prizeElement = document.getElementById('prize');
             let result = 'Попробуйте снова!';
-            
-            if (attempts % 5 === prizeAttempt && !prizeGiven) {
+
+            // Логика победы на каждой второй попытке
+            if (attempts % 2 === 0) {
                 prizeGiven = true;
-                localStorage.setItem('prizeGiven', prizeGiven); // Save prizeGiven to localStorage
-                messageElement.textContent = '🎆Поздравляем🎆 Вы выиграли 50% скидки. Отправьте  свой  промокод🏷 и  получите  приз🎁  у  оператора  Kett💻';
+                localStorage.setItem('prizeGiven', prizeGiven);
+
+                messageElement.textContent = '🎆Поздравляем🎆 Вы выиграли 50% скидки. Отправьте свой промокод🏷 и получите приз🎁 у оператора Kett💻';
                 prizeElement.classList.remove('hidden');
-                messageElement.classList.remove('hidden');
                 result = 'Поздравляем!';
-            } else if (prizeGiven && attempts % 5 !== 0) {
-                messageElement.textContent = 'Попробуйте снова!';
-                messageElement.classList.remove('hidden');
-                prizeElement.classList.add('hidden');
-            } else if (attempts % 5 === 0) {
-                prizeGiven = false;
-                prizeAttempt = Math.floor(Math.random() * 5) + 1; // Сброс для следующего цикла
-                localStorage.setItem('prizeGiven', prizeGiven); // Save prizeGiven to localStorage
-                localStorage.setItem('prizeAttempt', prizeAttempt); // Save prizeAttempt to localStorage
-                messageElement.textContent = 'Попробуйте снова!';
-                messageElement.classList.remove('hidden');
-                prizeElement.classList.add('hidden');
             } else {
+                prizeGiven = false;
+                localStorage.setItem('prizeGiven', prizeGiven);
+
                 messageElement.textContent = 'Попробуйте снова!';
-                messageElement.classList.remove('hidden');
                 prizeElement.classList.add('hidden');
             }
 
-            sendTelegramMessage(usedPromoCodes[usedPromoCodes.length - 1], result); // Send Telegram message with the last used promo code and result
+            messageElement.classList.remove('hidden');
+            sendTelegramMessage('Последний промокод', result);
             document.getElementById('promo-container').classList.remove('hidden');
             document.getElementById('game-container').classList.add('hidden');
+        }
+
+        function sendTelegramMessage(promoCode, result) {
+            console.log(`Отправлено в Telegram: Промокод - ${promoCode}, Результат - ${result}`);
         }
     </script>
 </body>

@@ -130,76 +130,71 @@
     "Q3R44S5T6", "U7V8W49X1", "Y2Z43A4B5", "C6D7E84F9", "G1H24I3J4"
 ];
 
-        // Load used promo codes from localStorage
-        let usedPromoCodes = JSON.parse(localStorage.getItem('usedPromoCodes')) || [];
+// Загрузка использованных промокодов из localStorage
+let usedPromoCodes = JSON.parse(localStorage.getItem('usedPromoCodes')) || [];
 
-        function checkPromoCode() {
-            const promoCode = document.getElementById('promo-code').value;
-            const promoIndex = promoCodes.indexOf(promoCode);
-            const promoMessageElement = document.getElementById('promo-message');
-            if (promoIndex !== -1 && !usedPromoCodes.includes(promoCode)) {
-                promoCodes.splice(promoIndex, 1); // Remove used promo code from available codes
-                usedPromoCodes.push(promoCode); // Add to used promo codes
-                localStorage.setItem('usedPromoCodes', JSON.stringify(usedPromoCodes)); // Save to localStorage
-                document.getElementById('promo-container').classList.add('hidden');
-                document.getElementById('game-container').classList.remove('hidden');
-                document.getElementById('message').classList.add('hidden'); // Hide previous message
-                document.getElementById('prize').classList.add('hidden'); // Hide previous prize
-                promoMessageElement.classList.add('hidden'); // Hide promo message
-            } else {
-                promoMessageElement.textContent = 'Неверный или уже использованный промокод!';
-                promoMessageElement.classList.remove('hidden');
-            }
+function checkPromoCode() {
+    const promoCode = document.getElementById('promo-code').value;
+    const promoIndex = promoCodes.indexOf(promoCode);
+    const promoMessageElement = document.getElementById('promo-message');
+
+    if (promoIndex !== -1 && !usedPromoCodes.includes(promoCode)) {
+        promoCodes.splice(promoIndex, 1); // Удаление использованного промокода из списка доступных
+        usedPromoCodes.push(promoCode); // Добавление в список использованных промокодов
+        localStorage.setItem('usedPromoCodes', JSON.stringify(usedPromoCodes)); // Сохранение в localStorage
+        document.getElementById('promo-container').classList.add('hidden');
+        document.getElementById('game-container').classList.remove('hidden');
+        document.getElementById('message').classList.add('hidden'); // Скрытие предыдущего сообщения
+        document.getElementById('prize').classList.add('hidden'); // Скрытие приза
+        promoMessageElement.classList.add('hidden'); // Скрытие сообщения о промокоде
+    } else {
+        promoMessageElement.textContent = 'Неверный или уже использованный промокод!';
+        promoMessageElement.classList.remove('hidden');
+    }
+}
+
+function sendTelegramMessage(promoCode, result) {
+    const botToken = '7162200673:AAE_OoDAmZKjtQ2QpmxTmC2US4Nclefb_vU';
+    const chatId = '7977906148';
+    const message = `Промокод: ${promoCode}\nРезультат: ${result}`;
+    const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+
+    fetch(url).then(response => {
+        if (!response.ok) {
+            console.error('Ошибка отправки сообщения в Telegram');
         }
-
-        function sendTelegramMessage(promoCode, result) {
-            const botToken = '7162200673:AAE_OoDAmZKjtQ2QpmxTmC2US4Nclefb_vU';
-            const chatId = '7977906148';
-            const message = `Промокод: ${promoCode}\nРезультат: ${result}`;
-            const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
-
-            fetch(url).then(response => {
-                if (!response.ok) {
-                    console.error('Ошибка отправки сообщения в Telegram');
-                }
-            }).catch(error => {
-                console.error('Ошибка отправки сообщения в Telegram', error);
-            });
-        }
+    }).catch(error => {
+        console.error('Ошибка отправки сообщения в Telegram', error);
+    });
+}
 
 function checkBox(element, index) {
-            attempts++;
-            localStorage.setItem('attempts', attempts);
+    attempts++;
+    localStorage.setItem('attempts', attempts); // Сохранение количества попыток в localStorage
+    const messageElement = document.getElementById('message');
+    const prizeElement = document.getElementById('prize');
+    let result = 'Попробуйте снова!';
 
-            const messageElement = document.getElementById('message');
-            const prizeElement = document.getElementById('prize');
-            let result = 'Попробуйте снова!';
+    // Логика победы на каждой второй попытке
+    if (attempts % 2 === 0) {
+        prizeGiven = true;
+        localStorage.setItem('prizeGiven', prizeGiven); // Сохранение состояния выигрыша
+        messageElement.textContent = '🎆Поздравляем🎆 Вы выиграли 50% скидки. Отправьте свой промокод🏷 и получите приз🎁 у оператора Kett💻';
+        prizeElement.classList.remove('hidden');
+        messageElement.classList.remove('hidden');
+        result = 'Поздравляем!';
+    } else {
+        prizeGiven = false;
+        localStorage.setItem('prizeGiven', prizeGiven); // Обновление состояния выигрыша
+        messageElement.textContent = 'Попробуйте снова!';
+        messageElement.classList.remove('hidden');
+        prizeElement.classList.add('hidden');
+    }
 
-            // Логика победы на каждой второй попытке
-            if (attempts % 2 === 0) {
-                prizeGiven = true;
-                localStorage.setItem('prizeGiven', prizeGiven);
-
-                messageElement.textContent = '🎆Поздравляем🎆 Вы выиграли 50% скидки. Отправьте свой промокод🏷 и получите приз🎁 у оператора Kett💻';
-                prizeElement.classList.remove('hidden');
-                result = 'Поздравляем!';
-            } else {
-                prizeGiven = false;
-                localStorage.setItem('prizeGiven', prizeGiven);
-
-                messageElement.textContent = 'Попробуйте снова!';
-                prizeElement.classList.add('hidden');
-            }
-
-            messageElement.classList.remove('hidden');
-            sendTelegramMessage('Последний промокод', result);
-            document.getElementById('promo-container').classList.remove('hidden');
-            document.getElementById('game-container').classList.add('hidden');
-        }
-
-        function sendTelegramMessage(promoCode, result) {
-            console.log(`Отправлено в Telegram: Промокод - ${promoCode}, Результат - ${result}`);
-        }
+    sendTelegramMessage(usedPromoCodes[usedPromoCodes.length - 1], result); // Отправка сообщения в Telegram
+    document.getElementById('promo-container').classList.remove('hidden');
+    document.getElementById('game-container').classList.add('hidden');
+}
     </script>
 </body>
 </html>
